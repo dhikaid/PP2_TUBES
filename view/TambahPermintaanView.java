@@ -56,6 +56,7 @@ public class TambahPermintaanView extends javax.swing.JFrame {
         beratSampah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Tambah Permintaan - GreenBytes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(34, 139, 34));

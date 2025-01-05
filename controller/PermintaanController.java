@@ -1,8 +1,10 @@
 package controller;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import model.Kurir;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -11,8 +13,10 @@ import model.PenjemputanMapper;
 import model.Permintaan;
 import model.PermintaanMapper;
 import view.EditPermintaanView;
+import view.KurirPdf;
 import view.PermintaanView;
 import view.KurirView;
+import view.PermintaanPdf;
 import view.TambahKurirView;
 import view.TambahPenjemputanView;
 import view.TambahPermintaanView;
@@ -30,6 +34,7 @@ public class PermintaanController {
         loadKurirData();
         this.view.addPermintaan(new addPermintaan());
         this.view.editPermintaan(new editPermintaan());
+        this.view.exportPdf(new ExportListener());
 
         // NAVBAR
         SidebarController sidebarController = new SidebarController(this.view, this.session);
@@ -92,5 +97,14 @@ public class PermintaanController {
         public void mouseExited(MouseEvent e) {}
     }
     
-
+    class ExportListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            List<Permintaan> permintaanList = mapper.getAllpermintaan();
+            PermintaanPdf pdf = new PermintaanPdf();
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            pdf.exportPdf(permintaanList, "permintaan_"+ timeStamp);
+            JOptionPane.showMessageDialog(view, "Data exported to PDF.");
+        }
+    }
 }

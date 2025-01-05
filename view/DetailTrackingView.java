@@ -64,7 +64,7 @@ public class DetailTrackingView extends javax.swing.JFrame {
         simpanBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Kurir");
+        setTitle("Detail Tracking - GreenBytes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(34, 139, 34));
@@ -196,7 +196,7 @@ public class DetailTrackingView extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel2.setText("Tracking");
+        jLabel2.setText("Detail Tracking");
 
         tablePermintaan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

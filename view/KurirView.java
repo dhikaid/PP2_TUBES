@@ -55,7 +55,7 @@ public class KurirView extends javax.swing.JFrame {
         btnExportPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Kurir");
+        setTitle("Kurir - GreenBytes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(34, 139, 34));
@@ -290,6 +290,10 @@ public class KurirView extends javax.swing.JFrame {
 
     public void addKurir(ActionListener listener){
         btnAddKurir.addActionListener(listener);
+    }
+
+    public void exportKurir(ActionListener listener){
+        btnExportPDF.addActionListener(listener);
     }
 
     public void redirectHome(ActionListener listener){

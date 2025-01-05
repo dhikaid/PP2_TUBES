@@ -55,7 +55,7 @@ public class LatestStatusView extends javax.swing.JFrame {
         btnExportPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Kurir");
+        setTitle("Status Penjemputan - GreenBytes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(34, 139, 34));
@@ -286,6 +286,10 @@ public class LatestStatusView extends javax.swing.JFrame {
 
     public void editPenjemputan(MouseListener listener) {
         tableStatus.addMouseListener(listener);
+    }
+    
+    public void exportPdf(ActionListener listener){
+        btnExportPDF.addActionListener(listener);
     }
 
     public JTable getTable() {

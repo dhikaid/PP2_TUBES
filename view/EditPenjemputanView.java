@@ -54,6 +54,7 @@ public class EditPenjemputanView extends javax.swing.JFrame {
         permintaan = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Penjemputan - GreenBytes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(34, 139, 34));

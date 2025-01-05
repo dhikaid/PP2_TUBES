@@ -1,16 +1,20 @@
 package controller;
 
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import model.Kurir;
 
 import org.apache.ibatis.session.SqlSession;
 
 import model.Penjemputan;
 import model.PenjemputanMapper;
 import view.EditPenjemputanView;
+import view.KurirPdf;
 import view.LatestStatusView;
+import view.StatusPenjemputanPdf;
 import view.TambahPenjemputanView;
 public class LatestStatusController {
     public LatestStatusView view;
@@ -23,6 +27,7 @@ public class LatestStatusController {
         this.session = session;
         this.view.addTambahJemputan(new addJemputan());
         this.view.editPenjemputan(new editPenjemputan());
+        this.view.exportPdf(new ExportListener());
         this.loadPenjemputanData();
 
        // NAVBAR
@@ -42,6 +47,16 @@ public class LatestStatusController {
         view.setTableData(penjemputanList);
     }
     
+    class ExportListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            List<Penjemputan> penjemputanList = mapper.getLatestStatus();
+            StatusPenjemputanPdf pdf = new StatusPenjemputanPdf();
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            pdf.exportPdf(penjemputanList, "penjemputan_"+ timeStamp);
+            JOptionPane.showMessageDialog(view, "Data exported to PDF.");
+        }
+    }
 
     class addJemputan implements ActionListener {
         @Override

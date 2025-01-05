@@ -7,6 +7,7 @@ public class Permintaan {
     private String jenis_sampah;
     private int berat_sampah;
     private String tanggal_permintaan;
+    private String status;
     private int total_sampah;
     private int total;
 
@@ -24,6 +25,14 @@ public class Permintaan {
 
     public int getTotal(){
         return this.total;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
 

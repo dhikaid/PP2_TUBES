@@ -3,7 +3,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface PermintaanMapper {
-    @Select("SELECT * FROM permintaan")
+    @Select("SELECT pe.id AS id,pe.nama_pelanggan AS namaPelanggan,pe.alamat AS alamat, pe.jenis_sampah as jenis_sampah, pe.tanggal_permintaan as tanggal_permintaan, pe.berat_sampah AS beratSampah,COALESCE(p.status, 'Belum di Pickup') AS status ,p.id AS idPenjemputan,p.tanggal_penjemputan AS waktuPenjemputan,p.point AS point FROM permintaan pe LEFT JOIN penjemputan p ON pe.id = p.id_permintaan ORDER BY pe.id ASC;")
     List<Permintaan> getAllpermintaan();
 
     @Select("SELECT p.* FROM permintaan p LEFT JOIN penjemputan pe ON p.id = pe.id_permintaan WHERE pe.id_permintaan IS NULL")

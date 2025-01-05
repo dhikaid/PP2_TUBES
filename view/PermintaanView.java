@@ -55,7 +55,7 @@ public class PermintaanView extends javax.swing.JFrame {
         btnExportPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Kurir");
+        setTitle("Permintaan - GreenBytes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(34, 139, 34));
@@ -191,17 +191,17 @@ public class PermintaanView extends javax.swing.JFrame {
 
         tablePermintaan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nama Pelanggan", "Alamat", "Jenis Sampah", "Berat Sampah", "Tanggal Permintaan"
+                "ID", "Nama Pelanggan", "Alamat", "Jenis Sampah", "Berat Sampah", "Tanggal Permintaan", "Status Permintaan"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -283,10 +283,14 @@ public class PermintaanView extends javax.swing.JFrame {
                 permintaan.getJenisSampah(),
                 permintaan.getBeratSampah() + " kg",
                 permintaan.getTanggalPermintaan(),
+                permintaan.getStatus(),
             });
         }
     }
 
+    public void exportPdf(ActionListener listener){
+        btnExportPDF.addActionListener(listener);
+    }
     
     public void editPermintaan(MouseListener listener) {
         tablePermintaan.addMouseListener(listener);

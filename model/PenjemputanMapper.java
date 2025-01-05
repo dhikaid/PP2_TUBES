@@ -41,6 +41,27 @@ WHERE
             "WHERE p.status = 'Selesai' ORDER BY p.id DESC")
     List<Penjemputan> getHistory();
     
+    @Select("SELECT p.id as id, p.status AS status, k.nama_kurir as namaKurir, p.tanggal_penjemputan AS waktuPenjemputan, pe.alamat as alamat, p.point as point, pe.berat_sampah as beratsampah, pe.nama_pelanggan as namaPelanggan " +
+            "FROM penjemputan p JOIN kurir k ON p.id_kurir = k.id JOIN permintaan pe ON p.id_permintaan = pe.id " +
+            "WHERE p.tanggal_penjemputan BETWEEN #{tanggal} AND #{tanggal2} ORDER BY p.id DESC")
+    List<Penjemputan> getHistoryByDate(@Param("tanggal") String tanggal, @Param("tanggal2") String tanggal2);
+    
+    @Select("SELECT p.id as id, p.status AS status, k.nama_kurir as namaKurir, p.tanggal_penjemputan AS waktuPenjemputan, pe.alamat as alamat, p.point as point, pe.berat_sampah as beratsampah, pe.nama_pelanggan as namaPelanggan " +
+            "FROM penjemputan p JOIN kurir k ON p.id_kurir = k.id JOIN permintaan pe ON p.id_permintaan = pe.id " +
+            "WHERE status = #{status} ORDER BY p.id DESC")
+    List<Penjemputan> getHistoryByStatus(@Param("status") String status);
+    
+    @Select("SELECT p.id as id, p.status AS status, k.nama_kurir as namaKurir, p.tanggal_penjemputan AS waktuPenjemputan, pe.alamat as alamat, p.point as point, pe.berat_sampah as beratsampah, pe.nama_pelanggan as namaPelanggan " +
+    "FROM penjemputan p " +
+    "JOIN kurir k ON p.id_kurir = k.id " +
+    "JOIN permintaan pe ON p.id_permintaan = pe.id " +
+    "WHERE k.nama_kurir LIKE CONCAT('%', #{search}, '%') " +
+    "OR pe.alamat LIKE CONCAT('%', #{search}, '%') " +
+    "OR pe.nama_pelanggan LIKE CONCAT('%', #{search}, '%') " +
+    "ORDER BY p.id DESC")
+    List<Penjemputan> getHistoryBySearch(@Param("search") String search);
+
+    
     @Select("SELECT p.id as id, p.status AS status, k.nama_kurir as namaKurir, " +
             "pe.tanggal_penjemputan as waktuPenjemputan, pe.lokasi as lokasi, " +
             "pe.jenis_sampah as jenisSampah, p.point as poinDidapatkan " +

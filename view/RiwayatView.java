@@ -4,12 +4,16 @@
  */
 package view;
 
+import com.raven.datechooser.DateChooser;
+import com.raven.datechooser.listener.DateChooserAdapter;
+import com.raven.datechooser.listener.DateChooserListener;
 import java.util.List;
 
 import javax.swing.JFrame;
 
 import model.Kurir;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 import model.Penjemputan;
 
@@ -21,11 +25,15 @@ import model.Permintaan;
  */
 public class RiwayatView extends javax.swing.JFrame {
 
+    private DateChooser chDate = new DateChooser();
     /**
      * Creates new form TambahPenjemputanView
      */
     public RiwayatView() {
         initComponents();
+        chDate.setTextField(tanggal);
+        chDate.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        chDate.setDateSelectionMode(DateChooser.DateSelectionMode.BETWEEN_DATE_SELECTED);
     }
 
     /**
@@ -49,8 +57,12 @@ public class RiwayatView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         riwayatTable = new javax.swing.JTable();
+        search = new javax.swing.JTextField();
+        tanggal = new javax.swing.JTextField();
+        status = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Riwayat Penjemputan - GreenBytes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(34, 139, 34));
@@ -205,6 +217,15 @@ public class RiwayatView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(riwayatTable);
 
+        search.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        search.setToolTipText("");
+
+        tanggal.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        tanggal.setToolTipText("");
+
+        status.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Belum Dimulai", "Dalam Perjalanan", "Selesai" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,9 +233,15 @@ public class RiwayatView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -223,8 +250,14 @@ public class RiwayatView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(status))
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -251,7 +284,27 @@ public class RiwayatView extends javax.swing.JFrame {
             });
         }
     }
-
+    
+    public void setTanggal(DateChooserListener event){
+       chDate.addActionDateChooserListener(event);
+    }
+    
+    public void setStatus(ActionListener event){
+        status.addActionListener(event);
+    }
+    
+    public void setSearch(ActionListener event){
+        search.addActionListener(event);
+    }
+    
+    public String getStatus(){
+       return (String) this.status.getSelectedItem();
+    }
+    
+    public String getSearch(){
+       return (String) this.search.getText();
+    }
+    
     public void redirectHome(ActionListener listener){
         menuHome.addActionListener(listener);
     }
@@ -362,5 +415,8 @@ public class RiwayatView extends javax.swing.JFrame {
     private javax.swing.JButton menuRiwayat;
     private javax.swing.JButton menuTracking;
     public javax.swing.JTable riwayatTable;
+    public javax.swing.JTextField search;
+    public javax.swing.JComboBox<String> status;
+    public javax.swing.JTextField tanggal;
     // End of variables declaration//GEN-END:variables
 }

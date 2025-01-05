@@ -1,5 +1,7 @@
 package controller;
 import java.awt.event.*;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -11,6 +13,8 @@ import model.PenjemputanMapper;
 import model.Kurir;
 import model.KurirMapper;
 import view.EditKurirView;
+import view.KurirPdf;
+import view.StatusPenjemputanPdf;
 import view.KurirView;
 import view.TambahKurirView;
 import view.TambahPenjemputanView;
@@ -28,6 +32,7 @@ public class KurirController {
         loadKurirData();
         this.view.addKurir(new addKurir());
         this.view.editKurir(new editKurir());
+        this.view.exportKurir(new ExportListener());
         
         // NAVBAR
         SidebarController sidebarController = new SidebarController(this.view, this.session);
@@ -90,5 +95,14 @@ public class KurirController {
         public void mouseExited(MouseEvent e) {}
     }
     
-
+    class ExportListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            List<Kurir> kurirs = mapper.getAllKurirs();
+            KurirPdf pdf = new KurirPdf();
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            pdf.exportPdf(kurirs, "kurir_"+ timeStamp);
+            JOptionPane.showMessageDialog(view, "Data exported to PDF.");
+        }
+    }
 }
